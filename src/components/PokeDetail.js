@@ -6,7 +6,20 @@ const PokeDetail = props => {
   const {routerProps, pokemones}= props;
   const pokeId = parseInt(routerProps.match.params.pokeId); 
   const pokemon = pokemones.filter(item => item.id === pokeId);
-  const {name, url, types}= pokemon[0];
+  if(pokeId > pokemones.length){
+    return(
+      <div className="ojo">
+        <p>No te pases de listo.</p>
+        <Link to="/" className="app__back">
+        Volver
+      </Link>
+      </div>
+    )
+  }
+  
+  if(pokemon[0]){
+
+    const {name, url, types}= pokemon[0];
   return (
 
     <Fragment>
@@ -33,7 +46,18 @@ const PokeDetail = props => {
         </ul>
         </div>
     </Fragment>
-  )
+  )}
+  else{
+    return(
+      <Fragment>
+      <Link to="/" className="app__back">
+        Volver al listado
+      </Link>
+      <p>Ese pokemon no lo tenemos.</p>
+      </Fragment>
+    )
+
+  }
 }
 
 PokeDetail.porpTypes = {
