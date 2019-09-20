@@ -1,13 +1,16 @@
 import React from 'react';
 import {fetchPokemones} from './services/fetchPokemones';
 import PokeList from './components/PokeList';
+import Filters from './components/Filters';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pokemones:[]
-    }
+      pokemones:[],
+      query: ''
+    };
+    this.getUserQuery= this.getUserQuery.bind(this);
   }
   componentDidMount(){
     this.getPokemones();
@@ -21,13 +24,24 @@ class App extends React.Component {
         this.setState({pokemones:data})
         console.log(data)})
   }
+  getUserQuery(event){
+    const query= event.currentTarget.value;
+    this.setState({query: query})
+  }
   render() {
-    const {pokemones} = this.state;
+    const {pokemones, query} = this.state;
     return (
       <div className="App">
         <h1 className="app__title">Mi lista de pokemones</h1>
-          <PokeList pokemones = {pokemones}/>
-
+          <Filters
+            getUserQuery= {this.getUserQuery}
+            query = {query}
+          />
+         
+          <PokeList 
+            pokemones = {pokemones}
+            query = {query}
+          />
       </div>
     );
   }

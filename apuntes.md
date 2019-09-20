@@ -30,6 +30,8 @@
 
 ## Pasos de un ejercicio
 
+### Fase 1 Pintar la lista
+
 1. Crear repo vacio y clonarlo
 2. Crear react-app
 3. Limpiar los archivos
@@ -43,4 +45,12 @@
 11. Le pasamos los props con destructuring a cada uno de los componentes.
 12. Activamos las prop-types.
 
+### Fase 2 Filter
 
+1. Creamos en el estado una clave query con cadena vacia.
+2. Lo pasamos por pros hasta PokeList.
+3. Creamos un filter antes del map que ya teníamos. Si el resultado es verdadero, el item pasa.
+  - .filter(myPokemon => myPokemon.name.includes({query}))
+4. Para que no tenga problema con las mayúsculas todo lo ponemos a mayúsculas.
+5. Creamos el input y un evento para corregir el valor. 
+6. El evento se debe bindear porque lo ejecuta el navegador
