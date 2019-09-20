@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PokeCard from './PokeCard';
+import {Link} from 'react-router-dom';
 // Hacemos esta función funcional porque no tiene métodos
 const PokeList = props => {
   const {pokemones, query} = props;
@@ -11,10 +12,12 @@ const PokeList = props => {
           .map(pokemon => {
             return(
               <li key={pokemon.id}>
+                <Link to = {`/poke-detail/${pokemon.id}`} className = "Pokemon-detail">
                 <PokeCard
                 name = {pokemon.name} 
                 url = {pokemon.url}
                 />
+                </Link>
               </li>
             )
           })

@@ -50,7 +50,51 @@
 1. Creamos en el estado una clave query con cadena vacia.
 2. Lo pasamos por pros hasta PokeList.
 3. Creamos un filter antes del map que ya teníamos. Si el resultado es verdadero, el item pasa.
-  - .filter(myPokemon => myPokemon.name.includes({query}))
+  - .filter(myPokemon => myPokemon.name.includes(query))
 4. Para que no tenga problema con las mayúsculas todo lo ponemos a mayúsculas.
 5. Creamos el input y un evento para corregir el valor. 
-6. El evento se debe bindear porque lo ejecuta el navegador
+6. El evento se debe bindear porque lo ejecuta el navegador.
+7. Este filter puede sacar a un componente. 
+
+Los componentes funcionales no se pone this.props, se pone solo props
+
+### Fase 3 Router
+
+Vamos a crear dos páginas. 
+La principal para la búsqueda
+La secundaria para los detalles 
+
+1. En index.js 
+~~~
+import {HashRouter} from 'react-router-dom';
+
+... <HashRouter><App /></HashRouter> ...
+~~~
+2. Creamos <Home />  y le pasamos lo q necesita Filter y Pokelist.
+3. Luego lo creamos un Detail, por ahora no le pasamos nada. 
+4. Importamos switch route y link 
+5. Creamos un switch en app y creamos dos rutas.
+6. Cuando el componente no tiene props podemos usar component = {PokeDetail}.
+7. Si tiene prosp tendremos que usar el render.
+8. Luego creamos los links en cada parte. 
+
+### Fase 4 Detalles
+
+Queremos que ahora cada vez q clickamos en un pokemon nos lleve al detalle de ESE pokemon. 
+Para identificarlo necesitamos la lista de todos los resultados y algo para identificarlo.
+
+1. Vamos a hacer que la ruta del detalle sea única para cada elemento de la lista.
+~~~
+    <Link to = {`/poke-detail/${pokemon.id}`} className = "Pokemon-detail">
+~~~
+2. Debemos ahora recuperar ese id, por eso necesitmas al detalle pasarle los props y lo tendremos que poner con render. 
+
+3. Tenemos que cambiar el path del detalle añadiendole /:id.
+4. A ese componente le pasamos routerProps, si consoleamos esta variable nos damos cuenta que en match --> params --> tendremos los datos pasados a la url que coincide con nuestra id. 
+5. Tambien le pasamos el array de todos los pokemon para sacar los datos del q buscamos. 
+6. Usamos un findIndex para encontrar al pokemon.
+7. Con el pokemon localizado podemos pintar sus elementos. 
+
+### Fase 5 Mejoras
+
+Vamos a solucionar el problema del error si recarga la página dentro del detalle. 

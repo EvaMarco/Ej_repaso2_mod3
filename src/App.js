@@ -1,7 +1,8 @@
 import React from 'react';
 import {fetchPokemones} from './services/fetchPokemones';
-import PokeList from './components/PokeList';
-import Filters from './components/Filters';
+import Home from './components/Home';
+import PokeDetail from './components/PokeDetail';
+import {Switch, Route} from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,15 +34,24 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1 className="app__title">Mi lista de pokemones</h1>
-          <Filters
-            getUserQuery= {this.getUserQuery}
-            query = {query}
+        <Switch>
+          <Route exact path = "/"render = { () => {
+            return(
+              <Home 
+                getUserQuery= {this.getUserQuery}
+                query = {query}
+                pokemones = {pokemones}  
+              />
+            )}}
           />
-         
-          <PokeList 
-            pokemones = {pokemones}
-            query = {query}
+          <Route  path = "/poke-detail/:pokeId"  render = { routerProps => {
+            return(
+              <PokeDetail 
+                routerProps = {routerProps}
+                pokemones = {pokemones}  
+            />)}}
           />
+        </Switch>
       </div>
     );
   }
